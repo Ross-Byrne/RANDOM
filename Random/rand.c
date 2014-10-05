@@ -7,46 +7,65 @@
 
 int main(void)
 {
-	int rndNum = 0, guess;
-	int playerLives = 5; // player only gets 5 guesses
-	time_t t;
+	int endGame = 0; //used to end game loop
 
+	int rndNum = 0, guess;
+	int playerLifes = 5; // player only gets 5 guesses
+	time_t t;
+	
 	// Intializes random number generator
 	srand((unsigned)time(&t));
 
-	rndNum = (rand() % 20) + 1; // generates number bewteen 1 and 20
-
-	printf("The aim of the game is to guess number between 1 and 20");
-
-	for (int i = 0; i < 5; i++) // loops 5 times, giving user 5 goes
+	while (endGame != 99) // type 99 to exit
 	{
-		printf("\nYou have %d lives left!\n", playerLives);
+		rndNum = (rand() % 20) + 1; // generates number bewteen 1 and 20
 
-		printf("\nGuess the number between 1 and 20: ");
-		scanf_s("%d", &guess); fflush(stdin);
+		playerLifes = 5; // resets lifes back to 5
 
-		if (guess == rndNum) // if you guess right
+		printf("\nThe aim of the game is to guess a number between 1 and 20");
+		printf("\nType 99 to exit the game\n");
+
+		for (int i = 0; i < 5; i++) // loops 5 times, giving user 5 goes
 		{
-			printf("\nYou have guessed %d, Which is the right number!", rndNum);
-			printf("\nCongratulations! You have won the game!");
-			break;
-		}
-		else if (guess > rndNum) // if guess is higher then number
-		{
-			printf("\nSorry, your guess %d is too high!", guess);
-		}
-		else if (guess < rndNum) // if guess is lower then number
-		{
-			printf("\nSorry, your guess %d is too low!", guess);
-		} // if else
+			if (playerLifes > 1) // to change lifes to life when only one is left
+			{
+				printf("\nYou have %d lifes left!\n", playerLifes);
+			}
+			else { printf("\nYou have %d life left!\n", playerLifes); }
 
-		playerLives--; // keeps track of users lives
-	} // for
+			printf("\nGuess the number between 1 and 20: ");
+			scanf_s("%d", &guess); fflush(stdin);
+			
+			if (guess == 99)		// ends the game when you type 99
+			{
+				endGame = guess;	// equals endGame to 99 to exit while loop
+				break;				// exits for loop so the while loop can see endGame == 99 and stop running
+			}
+			else if (guess > rndNum) // if guess is higher then number
+			{
+				printf("\nSorry, your guess %d is too high!", guess);
+			}
+			else if (guess < rndNum) // if guess is lower then number
+			{
+				printf("\nSorry, your guess %d is too low!", guess);
+			}
+			else if (guess == rndNum) // if you guess right
+			{
+				printf("\n\nYou have guessed %d, Which is the right number!", rndNum);
+				printf("\nCongratulations! You have won the game!\n\n");
+				break;
+			}// if else
 
-	if (playerLives == 0) // when the player runs out of lives
-	{
-		printf("\n\nSorry, you are out of lives, better luck next time!");
-	} // if
+			playerLifes--; // keeps track of users lifes
+		} // for
+		
+		if (playerLifes == 0) // when the player runs out of lifes
+		{
+			printf("\n\nYou are out of lifes, better luck next time!\n\n");
+		} // if
+	} // while
+
+	printf("\n\nThank you for playing!");
 
 	printf("\n\n\n");
 	system("pause");

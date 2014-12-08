@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define TURNS 5
+
 // The program generates a number between 1 and 20
 // the user gets 5 guesses to guess the number
 // program says weather num is correct, too high or too low
@@ -10,7 +12,7 @@ int main(void)
 	int endGame = 0; //used to end game loop
 
 	int rndNum = 0, guess;
-	int playerLifes = 5; // player only gets 5 guesses
+	int playerLifes = TURNS; // player only gets 5 guesses
 	time_t t;
 	
 	// Intializes random number generator
@@ -20,12 +22,12 @@ int main(void)
 	{
 		rndNum = (rand() % 20) + 1; // generates number bewteen 1 and 20
 
-		playerLifes = 5; // resets lifes back to 5
+		playerLifes = TURNS; // resets lifes back to 5
 
 		printf("\nThe aim of the game is to guess a number between 1 and 20");
 		printf("\nType 99 to exit the game\n");
 
-		for (int i = 0; i < 5; i++) // loops 5 times, giving user 5 goes
+		for (int i = 0; i < TURNS; i++) // loops 5 times, giving user 5 goes
 		{
 			if (playerLifes > 1) // to change lifes to life when only one is left
 			{
